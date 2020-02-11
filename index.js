@@ -26,7 +26,7 @@ if (!config.persist) {
     }
     
     logger.warn("Connected successfully to mongodb")
-    db = client.db('echo')
+    db = client.db(config.dbname)
   })
 }
 
