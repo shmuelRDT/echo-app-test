@@ -1,0 +1,29 @@
+pipeline{
+    agent any
+    stages{
+       stage("Pulling "){
+        steps{
+                script{
+                sh 'git pull '
+                }
+            }
+        }
+        stage("build"){
+            steps{
+                script{
+                sh 'docker build --tag=cow .'
+                sh 'docker run -d -p 8081:8080 cow '
+                }
+            }
+        } 
+        stage("build"){
+            steps{
+                script{
+                docker.withRegistry('https://162378266379.dkr.ecr.us-east-1.amazonaws.com/cowsay', 'ecr:us-east-1:bttrm-backend-ecr') {
+            sh "docker push 162378266379.dkr.ecr.us-east-1.amazonaws.com/cowsay/bttrm-receipt-consumer:latest"    
+        } 
+                }
+            }
+        } 
+    }
+}
