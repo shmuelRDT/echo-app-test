@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment { 
-        registry = "echoapp" 
+        registry = "shmuelrdt/echoapp" 
         registryCredential = 'dhub-credentials' 
         dockerImage = '' 
     }
@@ -27,7 +27,7 @@ pipeline{
         stage("push"){
             steps{
                 script{
-                    docker.withRegistry('https://registry.hub.docker.com/repository/docker/shmuelrdt/finaltest', 'dhub-credentials'){
+                    docker.withRegistry('https://registry.hub.docker.com/repository/docker/shmuelrdt/echoapp', 'dhub-credentials'){
                         image.push()
                     }
                 }
