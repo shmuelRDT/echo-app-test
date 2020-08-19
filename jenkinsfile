@@ -4,9 +4,11 @@ pipeline{
         stage("build"){
             steps{
                 script{
-                echo sh(returnStdout: true, script: 'env')
-                echo ${env.${GIT_COMMIT_HASH} 
-                echo ${env.BRANCH_NAME}
+                def env = System.getenv()
+                env.each{
+                println it
+            } 
+
                 }
             }
         } 
