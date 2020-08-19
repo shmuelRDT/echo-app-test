@@ -6,8 +6,8 @@ pipeline{
              script{
                branch = sh "echo ${env.BRANCH_NAME}"
                commithash = sh "echo ${env.GIT_COMMIT}"
-               echo $branch 
-               echo $commithash
+               echo ${branch} 
+               echo ${commithash}
             }
         } 
  
