@@ -20,15 +20,15 @@ pipeline{
                 }}
             }
         }
-        stage("push"){
-            when {
-                expression{env.BRANCH_NAME == 'dev'}
-            }
-            steps{
-                script{
+        // stage("push"){
+        //     when {
+        //         expression{env.BRANCH_NAME == 'dev'}
+        //     }
+        //     steps{
+        //         script{
                 
-                } 
-            }
-        }
+        //         } 
+        //     }
+        // }
     }
 }
