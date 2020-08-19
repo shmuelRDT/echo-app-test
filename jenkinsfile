@@ -4,19 +4,18 @@ pipeline{
         stage("build"){
             steps{
                 script{
-                sh 'echo $GIT_COMMIT' 
-                sh 'docker build --tag=devapp .'
-                sh 'docker tag '
+                echo ${env.${GIT_COMMIT_HASH} 
+                echo ${env.BRANCH_NAME}
                 }
             }
         } 
         stage("push"){
             steps{
-                script{
-                docker.withRegistry('https://162378266379.dkr.ecr.us-east-1.amazonaws.com/cowsay', 'ecr:us-east-1:bttrm-backend-ecr') {
-            sh "docker push 162378266379.dkr.ecr.us-east-1.amazonaws.com/cowsay/bttrm-receipt-consumer:latest"    
-        } 
-                }
+        //         script{
+        //         docker.withRegistry('https://162378266379.dkr.ecr.us-east-1.amazonaws.com/cowsay', 'ecr:us-east-1:bttrm-backend-ecr') {
+        //     sh "docker push 162378266379.dkr.ecr.us-east-1.amazonaws.com/cowsay/bttrm-receipt-consumer:latest"    
+        // } 
+        //         }
             }
         } 
     }
