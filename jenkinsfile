@@ -1,16 +1,17 @@
 pipeline{
     agent any
     stages{
+        if(env.BRANCH_NAME == 'dev'){
         stage("build"){
             steps{
-             script{
-               branch = sh "echo ${env.BRANCH_NAME}"
-               commithash = sh "echo ${env.GIT_COMMIT}"
-               echo ${branch} 
-               echo ${commithash}
-            }
-        } 
+                script{
+                sh "docker build -t app"
+                sh "docker tag app echoapp:${env.GIT_COMMIT}"
+                sh "echo tagged good"
+                } 
  
+            }
+        }
+        }
     }
-}
 }
