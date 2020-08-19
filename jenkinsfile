@@ -11,7 +11,7 @@ pipeline{
                     } 
                     else{
                     sh "docker build -t app ."
-                    sh "docker tag app echoapp:1.0.${JENKINS_BUILD_NUMBER}"
+                    sh "docker tag app echoapp:1.0.${env.BUILD_NUMBER}"
                     sh "echo built and tagged succssesfully"
                     }
                 }
