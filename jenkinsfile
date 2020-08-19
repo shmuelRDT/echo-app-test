@@ -1,5 +1,10 @@
 pipeline{
     agent any
+    environment { 
+        registry = "shmuelrdt/finaltest" 
+        registryCredential = 'dhub-credentials' 
+        dockerImage = '' 
+    }
     stages{
         stage("build"){
             steps{
@@ -8,13 +13,13 @@ pipeline{
                     sh "docker build -t app ."
                     sh "docker tag app echoapp:${env.BRANCH_NAME}-${env.GIT_COMMIT}"
                     sh "echo built and tagged succssesfully"
-                    image="echoapp:${env.BRANCH_NAME}-${env.GIT_COMMIT}"
+                    image = docker.build registry + "echoapp:${env.BRANCH_NAME}-${env.GIT_COMMIT}"
                     } 
                     else{
                     sh "docker build -t app ."
                     sh "docker tag app echoapp:1.0.${env.BUILD_NUMBER}"
                     sh "echo built and tagged succssesfully"
-                    image="echoapp:1.0.${env.BUILD_NUMBER}"
+                    image = docker.build registry + "echoapp:1.0.${env.BUILD_NUMBER}"
                     }
                 }
             }
