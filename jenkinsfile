@@ -1,8 +1,8 @@
 pipeline{
     agent any
     stages{
-        if(env.BRANCH_NAME == 'dev'){
         stage("build"){
+            if(env.BRANCH_NAME == 'dev'){
             steps{
                 script{
                 sh "docker build -t app"
@@ -11,7 +11,7 @@ pipeline{
                 } 
  
             }
-        }
+            }
         }
     }
 }
