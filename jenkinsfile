@@ -4,23 +4,28 @@ pipeline{
         stage("build"){
             steps{
                 script{
-                def env = System.getenv()
-                env.each{
-                println it
-            } 
-
+                    if(env.BRANCH_NAME != 'master'){
+                    sh "docker build -t app ."
+                    sh "docker tag app echoapp:${env.BRANCH_NAME}-${env.GIT_COMMIT}"
+                    sh "echo built and tagged succssesfully"
+                    } 
+                    else{
+                    sh "docker build -t app ."
+                    sh "docker tag app echoapp:1.0.${env.BUILD_NUMBER}"
+                    sh "echo built and tagged succssesfully"
+                    }
                 }
             }
-        } 
         // stage("push"){
-        //     steps{
-        // //         script{
-        // //         docker.withRegistry('https://162378266379.dkr.ecr.us-east-1.amazonaws.com/cowsay', 'ecr:us-east-1:bttrm-backend-ecr') {
-        // //     sh "docker push 162378266379.dkr.ecr.us-east-1.amazonaws.com/cowsay/bttrm-receipt-consumer:latest"    
-        // // } 
-        // //         }
+        //     when {
+        //         expression{env.BRANCH_NAME == 'dev'}
         //     }
-        // } 
+        //     steps{
+        //         script{
+                
+        //         } 
+        //     }
+        // }
     }
 }
-
+}
