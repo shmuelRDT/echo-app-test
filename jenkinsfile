@@ -4,12 +4,10 @@ pipeline{
         stage("build"){
             steps{
              script{
-                sh "echo ${env.BRANCH_NAME}"
-                sh "echo ${env.GIT_COMMIT}"
-                def env = System.getenv()
-                env.each{
-                println it
-            } 
+               branch = sh "echo ${env.BRANCH_NAME}"
+               commithash = sh "echo ${env.GIT_COMMIT}"
+               echo branch 
+               echo commit hash
             }
         } 
  
