@@ -1,0 +1,23 @@
+pipeline{
+    agent any
+    stages{
+        stage("build"){
+            steps{
+                script{
+                sh 'echo $GIT_COMMIT' 
+                sh 'docker build --tag=devapp .'
+                sh 'docker tag '
+                }
+            }
+        } 
+        stage("push"){
+            steps{
+                script{
+                docker.withRegistry('https://162378266379.dkr.ecr.us-east-1.amazonaws.com/cowsay', 'ecr:us-east-1:bttrm-backend-ecr') {
+            sh "docker push 162378266379.dkr.ecr.us-east-1.amazonaws.com/cowsay/bttrm-receipt-consumer:latest"    
+        } 
+                }
+            }
+        } 
+    }
+}
