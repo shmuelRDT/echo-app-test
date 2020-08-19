@@ -22,7 +22,7 @@ pipeline{
         stage("push"){
             steps{
                 script{
-                    docker.withRegistry('https://hub.docker.com/repository/docker/shmuelrdt/finaltest', 'dhub-credentials'){
+                    docker.withRegistry('https://registry.hub.docker.com/repository/docker/shmuelrdt/finaltest', 'dhub-credentials'){
                         image.push()
                     }
                 }
