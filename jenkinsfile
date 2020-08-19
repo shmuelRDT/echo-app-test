@@ -1,5 +1,10 @@
 pipeline{
     agent any
+    environment { 
+        registry = "shmuelrdt/echoapp" 
+        registryCredential = 'dhub-credentials' 
+        dockerImage = '' 
+    }
     stages{
         stage("build"){
             steps{
@@ -8,24 +13,25 @@ pipeline{
                     sh "docker build -t app ."
                     sh "docker tag app echoapp:${env.BRANCH_NAME}-${env.GIT_COMMIT}"
                     sh "echo built and tagged succssesfully"
+                    image = docker.build registry + ":${env.BRANCH_NAME}-${env.GIT_COMMIT}"
                     } 
                     else{
                     sh "docker build -t app ."
                     sh "docker tag app echoapp:1.0.${env.BUILD_NUMBER}"
                     sh "echo built and tagged succssesfully"
+                    image = docker.build registry + ":1.0.${env.BUILD_NUMBER}"
                     }
                 }
             }
-        // stage("push"){
-        //     when {
-        //         expression{env.BRANCH_NAME == 'dev'}
-        //     }
-        //     steps{
-        //         script{
-                
-        //         } 
-        //     }
-        // }
+        }
+        stage("push"){
+            steps{
+                script{
+                    docker.withRegistry('https://registry.hub.docker.com/repository/docker/shmuelrdt/echoapp', 'dhub-credentials'){
+                        image.push()
+                    }
+                }
+            }
     }
 }
 }
