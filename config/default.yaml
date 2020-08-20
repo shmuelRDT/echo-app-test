@@ -1,5 +1,6 @@
 port: 3000
-loglevel: debug
-persist: false
-mongodburl: mongodb://user:password@127.0.0.1:27017/echo?authSource=admin
+loglevel: info
+persist: true
+mongodburl: mongodb://root:secretpassword@mongol-mongodb-replicaset-0.mongol-mongodb-replicaset,mongol-mongodb-replicaset-1.mongol-mongodb-replicaset,mongol-mongodb-replicaset-2.mongol-mongodb-replicaset:27017/echo?authSource=admin
 dbname: echo
+delete: true
